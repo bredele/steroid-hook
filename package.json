@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/bredele/steroid-hook#readme",
   "devDependencies": {
+    "concat-stream": "^1.6.0",
     "steroid": "^0.9.0",
     "tape": "^4.6.3"
   }
