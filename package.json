@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/bredele/steroid-hook/issues"
   },
-  "homepage": "https://github.com/bredele/steroid-hook#readme"
+  "homepage": "https://github.com/bredele/steroid-hook#readme",
+  "devDependencies": {
+    "tape": "^4.6.3"
+  }
 }
