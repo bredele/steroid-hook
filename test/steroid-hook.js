@@ -11,9 +11,9 @@ require('..')
 test('define custom tags using uppercase', assert => {
   assert.plan(1)
   html`<Hello style="world"></Hello>`
-    .pipe(concat(buffer) {
+    .pipe(concat(buffer => {
       assert.equal(buffer.toString(), '<button class="world">hello</button>')
-    })
+    }))
 })
 
 /**
