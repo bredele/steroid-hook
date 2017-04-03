@@ -1,0 +1,29 @@
+{
+  "name": "steroid-hook",
+  "version": "1.0.0",
+  "description": "nodejs hook to transpile steroid templated into jsx-like templates",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bredele/steroid-hook.git"
+  },
+  "keywords": [
+    "template",
+    "hook",
+    "jsx",
+    "steroid",
+    "html"
+  ],
+  "author": "Olvier <olivier.wietrich@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bredele/steroid-hook/issues"
+  },
+  "homepage": "https://github.com/bredele/steroid-hook#readme"
+}
