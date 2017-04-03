@@ -4,12 +4,16 @@
 
 const test = require('tape')
 const html = require('steroid')
-const hook = require('..')
+const concat = require('concat-stream')
+require('..')
 
 
 test('define custom tags using uppercase', assert => {
   assert.plan(1)
-  
+  html`<Hello style="world"></Hello>`
+    .pipe(concat(buffer) {
+      assert.equal(buffer.toString(), '<button class="world">hello</button>')
+    })
 })
 
 /**
@@ -19,5 +23,5 @@ test('define custom tags using uppercase', assert => {
  */
 
 function Hello(params) {
-  return <button class="${params.style}">hello</button>
+  return html`<button class="${params.style}">hello</button>``
 }
