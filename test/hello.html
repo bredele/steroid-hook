@@ -1,0 +1,29 @@
+/**
+ * Dependencies
+ */
+
+const html = require('steroid')
+
+/**
+ * Expose steroid stream.
+ */
+
+module.exports = {
+  openTagCloseTag() {
+    return html`<Hello></Hello>`
+  },
+
+  openCloseTag() {
+    return html`<Hello/>`
+  }
+}
+
+/**
+ * Hello component.
+ *
+ * @api private
+ */
+
+function Hello(params) {
+  return html`<button>hello</button>`
+}

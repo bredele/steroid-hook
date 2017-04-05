@@ -25,8 +25,22 @@ function compile(file) {
   return file.replace(regex, function(str, expr) {
     return 'html`' + transform(expr)+ '`'
   })
+  return file
 }
 
+
+/**
+ * Transform html tagged template having custom tags.
+ *
+ * Examples:
+ *
+ *  transform('<Hello></Hello>')
+ *  // => '${Hello()}'
+ *
+ * @param {String} str
+ * @return {String}
+ * @api private
+ */
 
 function transform(str) {
   var i = 0
@@ -43,8 +57,15 @@ function transform(str) {
       continue
     } else if(char === '>') {
       isText = true
+      let openClose = false
+      if(cache.slice(-1) === '/' && (cache[0] !== cache[0].toLowerCase())) {
+        cache = cache.slice(0, -1)
+        openClose = true
+      }
       let node = cache.split(' ')
-      result += replace(node.shift(), node)
+      let name = node.shift()
+      result += replace(name, node)
+      if(openClose) result += replace(`/${name}`)
       cache = ''
       continue
     } else if(isText) {
@@ -55,6 +76,14 @@ function transform(str) {
   return result
 }
 
+
+/**
+ * Replace custom tags with function call.
+ *
+ * @param {String} file
+ * @return {String}
+ * @api private
+ */
 
 function replace(str, attributes) {
   const first = str[0]
