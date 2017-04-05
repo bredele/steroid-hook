@@ -5,7 +5,13 @@
 
 const read = require('fs').readFileSync
 
-const regex = /html\`(.*)\`/g
+
+/**
+ * Regex to parse tagged templates
+ */
+
+const tagged = /html\`(.*)\`/g
+
 
 require.extensions['.html'] = function(mod, filename) {
   const file = read(filename, {encoding: 'utf-8'})
@@ -22,10 +28,9 @@ require.extensions['.html'] = function(mod, filename) {
  */
 
 function compile(file) {
-  return file.replace(regex, function(str, expr) {
+  return file.replace(tagged, function(str, expr) {
     return 'html`' + transform(expr)+ '`'
   })
-  return file
 }
 
 
@@ -81,7 +86,8 @@ function transform(str) {
 /**
  * Replace custom tags with function call.
  *
- * @param {String} file
+ * @param {String} str
+ * @param {Array} attributes
  * @return {String}
  * @api private
  */
@@ -91,13 +97,13 @@ function replace(str, attributes) {
   const second = str[1]
   if(first === '/') {
     if(second !== second.toLowerCase()) {
-      return ')}'
+      return '`)}'
     } else {
       return `<${str}>`
     }
   } else {
     if(first !== first.toLowerCase()) {
-      return '${' + str + '('
+      return '${' + str + '({},html`'
     } else {
       const attrs = attributes.join(' ')
       return `<${str}${attrs.length ? ' ' + attrs : ''}>`

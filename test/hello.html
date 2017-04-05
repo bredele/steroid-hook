@@ -19,6 +19,14 @@ module.exports = {
 
   multipleSibling() {
     return html`<Hello></Hello><br><Hello/>`
+  },
+
+  imbricatedTags() {
+    return html`<Hello><br><Hello/><span>world</span></Hello>`
+  },
+
+  tagWithAttributes() {
+    return html`<Foo label="bar"></Foo>`
   }
 }
 
@@ -28,6 +36,16 @@ module.exports = {
  * @api private
  */
 
-function Hello(params) {
-  return html`<button>hello</button>`
+function Hello(params, children) {
+  return html`<button>hello${children}</button>`
+}
+
+/**
+ * Foo component.
+ *
+ * @api private
+ */
+
+function Foo(params, children) {
+  return html`<span>${params.label}</span>`
 }
