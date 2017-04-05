@@ -11,6 +11,6 @@ const hello = require('./hello.html')
 test('define custom tags using uppercase', assert => {
   assert.plan(1)
   hello().pipe(concat(buffer => {
-    assert.equal(buffer.toString(), '<button class="world">hello</button>')
+    assert.equal(buffer.toString(), '<button>hello</button>')
   }))
 })
