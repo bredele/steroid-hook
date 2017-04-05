@@ -110,12 +110,38 @@ function replace(str, attrs) {
   }
 }
 
+/**
+ * Create object representation from html attributes.
+ *
+ * Examples:
+ *
+ *  attributes('name="hello"')
+ *  // => '{name:"hello"}'
+ *
+ *  attributes('name="hello" test')
+  *  // => '{name:"hello"}'
+ *
+ * @param {String} attrs
+ * @param {String}
+ * @api private
+ */
 
 function attributes(attrs) {
   var obj = '{'
   attrs.replace(/(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|["']))+.)["']?/g, function(_, key, value) {
-    obj += `${key}:'${value}',`
+    if(value[0] === '$') {
+      obj += `${key}:${interpolate(value)},`
+    } else {
+      obj += `${key}:'${interpolate(value)}',`
+    }
   })
   obj += '}'
   return obj
+}
+
+
+function interpolate(str) {
+  return str.replace(/(\$|\#)\{([^{}]*)\}/g, function(_, type, expr) {
+   return expr
+  })
 }

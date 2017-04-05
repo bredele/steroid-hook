@@ -38,9 +38,16 @@ test('define custom tags imbricated together', assert => {
 })
 
 
-test('define simple custom tag with Attributes', assert => {
+test('define simple custom tag with attributes', assert => {
   assert.plan(1)
   hello.tagWithAttributes().pipe(concat(buffer => {
+    assert.equal(buffer.toString(), '<span>bar</span>')
+  }))
+})
+
+test('define simple custom tag with dynamic attributes', assert => {
+  assert.plan(1)
+  hello.tagWithDynamicAttributes().pipe(concat(buffer => {
     assert.equal(buffer.toString(), '<span>bar</span>')
   }))
 })

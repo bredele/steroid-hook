@@ -26,7 +26,12 @@ module.exports = {
   },
 
   tagWithAttributes() {
-    return html`<Foo label="bar" other='random'></Foo>`
+    return html`<Foo label="bar" other='random' test></Foo>`
+  },
+
+  tagWithDynamicAttributes() {
+    const label = "bar"
+    return html`<Foo label="${label}" other='random' test></Foo>`
   }
 }
 
