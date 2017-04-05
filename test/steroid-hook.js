@@ -8,16 +8,23 @@ const concat = require('concat-stream')
 const hello = require('./hello.html')
 
 
-test('define custom tags using uppercase', assert => {
+test('define simple custom tags', assert => {
   assert.plan(1)
   hello.openTagCloseTag().pipe(concat(buffer => {
     assert.equal(buffer.toString(), '<button>hello</button>')
   }))
 })
 
-test('define custom open/close tags', assert => {
+test('define simple custom open/close tags', assert => {
   assert.plan(1)
   hello.openCloseTag().pipe(concat(buffer => {
     assert.equal(buffer.toString(), '<button>hello</button>')
+  }))
+})
+
+test('define multiple sibling custom tags', assert => {
+  assert.plan(1)
+  hello.multipleSibling().pipe(concat(buffer => {
+    assert.equal(buffer.toString(), '<button>hello</button><br><button>hello</button>')
   }))
 })

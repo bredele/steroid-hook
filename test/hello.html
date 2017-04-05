@@ -15,6 +15,10 @@ module.exports = {
 
   openCloseTag() {
     return html`<Hello/>`
+  },
+
+  multipleSibling() {
+    return html`<Hello></Hello><br><Hello/>`
   }
 }
 

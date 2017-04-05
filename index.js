@@ -58,7 +58,8 @@ function transform(str) {
     } else if(char === '>') {
       isText = true
       let openClose = false
-      if(cache.slice(-1) === '/' && (cache[0] !== cache[0].toLowerCase())) {
+      let first = cache[0]
+      if(cache.slice(-1) === '/' && (first !== first.toLowerCase())) {
         cache = cache.slice(0, -1)
         openClose = true
       }
