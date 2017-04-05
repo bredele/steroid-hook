@@ -41,6 +41,6 @@ test('define custom tags imbricated together', assert => {
 test('define simple custom tag with Attributes', assert => {
   assert.plan(1)
   hello.tagWithAttributes().pipe(concat(buffer => {
-    assert.equal(buffer.toString(), '<span>foo</span>')
+    assert.equal(buffer.toString(), '<span>bar</span>')
   }))
 })

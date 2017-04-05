@@ -70,7 +70,7 @@ function transform(str) {
       }
       let node = cache.split(' ')
       let name = node.shift()
-      result += replace(name, node)
+      result += replace(name, node.join(' '))
       if(openClose) result += replace(`/${name}`)
       cache = ''
       continue
@@ -92,7 +92,7 @@ function transform(str) {
  * @api private
  */
 
-function replace(str, attributes) {
+function replace(str, attrs) {
   const first = str[0]
   const second = str[1]
   if(first === '/') {
@@ -103,10 +103,19 @@ function replace(str, attributes) {
     }
   } else {
     if(first !== first.toLowerCase()) {
-      return '${' + str + '({},html`'
+      return '${' + str + '(' + attributes(attrs) + ',html`'
     } else {
-      const attrs = attributes.join(' ')
-      return `<${str}${attrs.length ? ' ' + attrs : ''}>`
+      return `<${str}${attrs ? attrs : ''}>`
     }
   }
+}
+
+
+function attributes(attrs) {
+  var obj = '{'
+  attrs.replace(/(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|["']))+.)["']?/g, function(_, key, value) {
+    obj += `${key}:'${value}',`
+  })
+  obj += '}'
+  return obj
 }
