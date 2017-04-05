@@ -2,7 +2,7 @@
  * Test dependencies
  */
 
-require('..')
+require('..')('.html')
 const test = require('tape')
 const concat = require('concat-stream')
 const hello = require('./hello.html')

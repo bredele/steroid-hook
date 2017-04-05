@@ -13,9 +13,11 @@ const read = require('fs').readFileSync
 const tagged = /html\`(.*)\`/g
 
 
-require.extensions['.html'] = function(mod, filename) {
-  const file = read(filename, {encoding: 'utf-8'})
-  return mod._compile(compile(file), filename)
+module.exports = function(extension) {
+  require.extensions[extension] = function(mod, filename) {
+    const file = read(filename, {encoding: 'utf-8'})
+    return mod._compile(compile(file), filename)
+  }
 }
 
 
@@ -139,6 +141,14 @@ function attributes(attrs) {
   return obj
 }
 
+
+/**
+ * Interpolate ${} placeholders
+ *
+ * @param {String} str
+ * @return {String}
+ * @api private
+ */
 
 function interpolate(str) {
   return str.replace(/(\$|\#)\{([^{}]*)\}/g, function(_, type, expr) {
