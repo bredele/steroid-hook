@@ -14,7 +14,7 @@ const tagged = /html\`(.*)\`/g
 
 
 module.exports = function(extension) {
-  require.extensions[extension] = function(mod, filename) {
+  require.extensions['.' + extension] = function(mod, filename) {
     const file = read(filename, {encoding: 'utf-8'})
     return mod._compile(compile(file), filename)
   }
