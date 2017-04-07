@@ -7,16 +7,13 @@ const read = require('fs').readFileSync
 
 
 /**
- * Regex to parse tagged templates
+ * Expose hook.
  */
-
-const tagged = /html\`(.*)\`/g
-
 
 module.exports = function(extension) {
   require.extensions['.' + extension] = function(mod, filename) {
     const file = read(filename, {encoding: 'utf-8'})
-    return mod._compile(compile(file), filename)
+    return mod._compile(compile(file, new RegExp(extension + '\`(.*)\`','g')), filename)
   }
 }
 
@@ -29,8 +26,8 @@ module.exports = function(extension) {
  * @api private
  */
 
-function compile(file) {
-  return file.replace(tagged, function(str, expr) {
+function compile(file, regexp) {
+  return file.replace(regexp, function(str, expr) {
     return 'html`' + transform(expr)+ '`'
   })
 }
